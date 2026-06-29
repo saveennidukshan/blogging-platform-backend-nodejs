@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { prisma } from "./../configs/db.config.js"
 
 export const getAllBlogs = async (req, res) => {
@@ -53,3 +54,48 @@ export const deleteBlog = async(req, res) => {
         success: true
     });
 }
+
+export const getComments = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await axios.get(
+            `http://localhost:3003/${id}`
+        );
+
+        res.json(response.data);
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: "Failed to fetch comments" });
+    }
+};
+
+export const createComment = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await axios.post(
+            `http://localhost:3003/${id}`,{
+                text: req.body.text
+            }
+        );
+
+        res.send("comment Created");
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: "Failed to fetch comments" });
+    }
+};
+
+
+export const deleteComment = async (req, res) => {
+    try {
+        const { comId } = req.params;
+        const response = await axios.delete(
+            `http://localhost:3003/${comId}`
+        );
+
+        res.send("comment deleted");
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({ message: "Failed to fetch comments" });
+    }
+};
