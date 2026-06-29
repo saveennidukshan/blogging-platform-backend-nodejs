@@ -16,5 +16,5 @@ model blog {
   id        Int     @id @default(autoincrement()) 
   title     String
   content   String? @db.Text
-  user Int
+  user String
 } 
