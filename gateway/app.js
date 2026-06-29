@@ -14,6 +14,17 @@ app.use(
   })
 );
 
+app.use(
+  "/api/v1/blog",
+  createProxyMiddleware({
+    target: "http://localhost:3002",
+    changeOrigin: true,
+    pathRewrite: {
+      "^/api/auth": "",
+    },
+  })
+);
+
 app.get('/',(req, res)=>res.send("Gateway Running"))
 
 export default app;
