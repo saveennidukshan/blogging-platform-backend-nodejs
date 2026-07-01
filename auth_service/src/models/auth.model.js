@@ -18,7 +18,7 @@ export class UserRepository {
         },
       });
     } 
-    catch {
+    catch{
         throw new Error("Database error");      
     }
   }
